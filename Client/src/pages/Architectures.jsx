@@ -7,7 +7,11 @@ function Architectures() {
   return (
     <div>
       <CardDetails/>
-      
+
+      <CardDetails/>
+      <CardDetails/>
+      <CardDetails/>
+
     </div>
   )
 }

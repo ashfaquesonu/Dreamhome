@@ -3,6 +3,9 @@ import team from '../Assets/Image/team-1.jpg'
 import './Card.css'
 import { Button, IconButton, Stack } from '@mui/material'
 import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import MessageIcon from '@mui/icons-material/Message';
 
 const CardDetails = () => {
@@ -25,16 +28,16 @@ const CardDetails = () => {
         </div>
         <Stack direction="row" justifyContent="space-evenly">
           <IconButton>
-            <InstagramIcon />
+            <WhatsAppIcon />
           </IconButton>
           <IconButton>
             <InstagramIcon />
           </IconButton>
           <IconButton>
-            <InstagramIcon />
+            <FacebookIcon />
           </IconButton>
           <IconButton>
-            <InstagramIcon />
+            <LinkedInIcon />
           </IconButton>
          
         </Stack>

@@ -17,7 +17,7 @@ function Builder() {
           <Grid item xs={2}>
             <ContructerCard
              title={"Engineers"}    
-             image={engineersImage}/>
+             image={engineersImage}/> 
             
           </Grid>
           <Grid item xs={2}>

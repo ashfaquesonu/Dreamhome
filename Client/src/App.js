@@ -6,8 +6,10 @@ import Project from './pages/Projects'
 import About from './pages/About'
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './Component/Navbar';
-import Contact from './pages/Contact';
+import AiInterior from './pages/AI/AiInterior';
 import team from '../src/Assets/Image/team-1.jpg'
+import Admin from './pages/Admin';
+
 
 
 
@@ -53,7 +55,8 @@ function App() {
           <Route path='/engineers' element={<Engineers engineers={engineersData} />} />
           <Route path='/architectures' element={<Architectures architectures={architectureData} />} />
           <Route path='/projects' element={<Project />} />
-          <Route path='/contact' element={<Contact />} />
+          <Route path='/ai-interior' element={<AiInterior />} />
+          <Route path='/admin' element={<Admin/>}/>
         </Routes>
       </main>
 

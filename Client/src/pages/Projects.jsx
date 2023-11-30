@@ -1,9 +1,11 @@
 import React from 'react'
+import ProjectDetails from '../Component/Works/ProjectDetails'
 
 function Projects() {
   return (
     <div>
-      project
+      <ProjectDetails/>
+
     </div>
   )
 }

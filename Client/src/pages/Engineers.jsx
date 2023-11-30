@@ -7,6 +7,8 @@ function Engineers() {
     <div className='engineers-container'>
      <CardDetails/>
      <CardDetails/>
+     <CardDetails/>
+
     </div>
   );
 }
