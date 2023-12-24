@@ -25,7 +25,7 @@ const ImageUploadBox = () => {
   };
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', margin: 0 }}>
+    <div style={{marginLeft:'150px' , marginTop:'50px' }}>
       <div id="upload-box" style={{ border: '2px dashed #aaa', borderRadius: '8px', padding: '20px', textAlign: 'center', cursor: 'pointer', width: '300px', height: '200px' ,position: 'relative',
           overflow: 'hidden' , marginRight:'700px' , marginBottom:'400px'}}>
         <label htmlFor="file-input">
@@ -36,7 +36,7 @@ const ImageUploadBox = () => {
             <img 
             src={filePreview}
             alt='slected file'
-            style={{maxWidth:'100%' , Height: '100%' ,position: 'absolute',  left: 0, right: 0, bottom: 0}}
+            style={{maxWidth:'100%' , Height: '100%' ,position: 'absolute',  left: 0, right: 0, bottom: 0,}}
 
             />
         )}

@@ -4,17 +4,21 @@ import Engineers from './pages/Engineers';
 import Architectures from './pages/Architectures'
 import Project from './pages/Projects'
 import About from './pages/About'
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './Component/Navbar';
 import AiInterior from './pages/AI/AiInterior';
 import team from '../src/Assets/Image/team-1.jpg'
 import Admin from './pages/Admin';
+import Builder from './Component/Builders/Builder';
+import EngineerCard from '../src/Component/Builders/ConstructerCard'
+import Auth from './pages/Auth';
 
 
 
 
 
 function App() {
+  const location = useLocation();
   const engineersData = [
     {
       name: 'John Doe',
@@ -42,15 +46,20 @@ function App() {
     },
   ]
 
-
+  const shouldShowNavbar = () => {
+    return location.pathname !== '/auth';
+  };
 
   return (
     <div>
       <main className='content'>
-        <Navbar />
+        
+        {shouldShowNavbar() && <Navbar />}
         
         <Routes>
+
           <Route path='/' element={<Home />} />
+          <Route path='/auth' element={<Auth />} />
           <Route path='/about' element={<About />} />
           <Route path='/engineers' element={<Engineers engineers={engineersData} />} />
           <Route path='/architectures' element={<Architectures architectures={architectureData} />} />

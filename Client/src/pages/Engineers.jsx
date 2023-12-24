@@ -1,14 +1,19 @@
 import React from 'react';
 import CardDetails from '../Component/CardDetails';
-import '../Component/Card.css'
+
 
 function Engineers() {
   return (
-    <div className='engineers-container'>
-     <CardDetails/>
-     <CardDetails/>
-     <CardDetails/>
-
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridAutoRows: 'auto', gap: '16px' , paddingLeft:'60px' }}>
+      <CardDetails/>
+      <CardDetails />
+      <CardDetails />
+      <CardDetails />
+      <CardDetails />
+      <CardDetails />
+      <CardDetails />
+      <CardDetails /> 
+      <CardDetails />
     </div>
   );
 }

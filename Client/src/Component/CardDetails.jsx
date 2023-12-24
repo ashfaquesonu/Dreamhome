@@ -8,6 +8,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import MessageIcon from '@mui/icons-material/Message';
 
+
 const CardDetails = () => {
   return (
     <div className='upc'>

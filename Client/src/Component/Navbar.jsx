@@ -17,7 +17,7 @@ import {  useNavigate } from 'react-router-dom';
 
 
 function Navbar() {
-    const pages = ['home', 'about', 'engineers', 'architectures', 'projects', 'ai-interior'];
+    const pages = ['home',  'engineers', 'architectures', 'projects', 'ai-interior','about'];
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
     const navigate = useNavigate();

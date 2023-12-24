@@ -1,21 +1,27 @@
 import { Box, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import ImageUploadBox from '../AI/AiInput'
-import MenuList from '../AI/MenuList';
+import OutputBox from '../AI/AiImage'
 
 function AiInterior() {
-  const [menu, setMenu] = React.useState('');
-  const handleChange = (event) => {
-    setMenu(event.target.value);
+  const [selectedModel, setSelectedModel] = React.useState('');
+  const [room, setRoom] = useState('')
+
+  const handleModelChange = (event) => {
+    setSelectedModel(event.target.value);
   };
+
+  const handleRoomChange = (event) => {
+    setRoom(event.target.value)
+  }
 
 
   return (
     <>
-      <Paper elevation={3} sx={{ marginY: 5, marginX: 8, padding: 5, backgroundColor: "#28296b" }} >
+      <Paper elevation={3} sx={{marginY: 5, marginX: 8, padding: 5, backgroundColor: "#28296b" }} >
         <Box>
           <Typography variant='h6' color="white">
             Upload a photo or image
@@ -24,22 +30,23 @@ function AiInterior() {
             Upload a photo or image of room whose appearance you want to improve
           </Typography>
         </Box>
-        <Button variant="contained" endIcon={<AutoAwesomeIcon />}>
+        <Button variant="contained" endIcon={<AutoAwesomeIcon />} sx={{display:'flex' , marginLeft:"900px"}}>
           Design this room
         </Button>
       </Paper>
 
-      {/* <Box sx={{ display: 'flex', marginLeft: '60px' }}>
+      <Box sx={{ display: 'flex', marginLeft: '60px' }}>
         <FormControl sx={{ width: "300px" }}>
           <InputLabel id="fruitSelectLabel">Select a model</InputLabel>
           <Select
-          value={menu}
-          onChange={handleChange}
-          
+            value={selectedModel}
+            onChange={handleModelChange}
           >
-            <MenuItem value={10}>Modern</MenuItem>
-            <MenuItem value={20}>Vintage</MenuItem>
-            <MenuItem value={30}>Classic</MenuItem>
+            <MenuItem value="Modern">Modern</MenuItem>
+            <MenuItem value='Vintage'>Vintage</MenuItem>
+            <MenuItem value='Minimalist'>Minimalist</MenuItem>
+            <MenuItem value='Professional'>Professional</MenuItem>
+
             <MenuItem ></MenuItem>
           </Select>
         </FormControl>
@@ -47,29 +54,24 @@ function AiInterior() {
         <FormControl sx={{ width: "300px", marginLeft: '50px' }}>
           <InputLabel id="fruitSelectLabel">Room type</InputLabel>
           <Select
-          value={menu}
-          onChange={handleChange}
+            value={room}
+            onChange={handleRoomChange}
           >
-            <MenuItem value={40}>Bed Room</MenuItem>
-            <MenuItem >Living Room</MenuItem>
-            <MenuItem >Dinnig Hall</MenuItem>
-            <MenuItem ></MenuItem>
+            <MenuItem value='Bed room'>Bed Room</MenuItem>
+            <MenuItem value='Living room'>Living Room</MenuItem>
+            <MenuItem value='Dinnig hall'>Dinnig Hall</MenuItem>
+            <MenuItem value='Bathroom' >Bathroom</MenuItem>
+            <MenuItem value='office'>Office</MenuItem>
+
           </Select>
         </FormControl>
-      </Box> */}
+      </Box>
 
-<div style={{ display: 'flex', flexDirection: 'row',marginLeft:'60px' }}>
-  <MenuList />
-  <MenuList />
-</div>
-
+     <ImageUploadBox />
+     <OutputBox/>
+      
 
 
-
-
-
-
-      <ImageUploadBox />
 
 
 

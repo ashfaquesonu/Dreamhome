@@ -1,12 +1,13 @@
 import { Button, Card, CardMedia, Typography, CardContent, CardActions } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 
 
-function ConstructerCard({ title, image }) {
+function ConstructerCard({ title, image, targetRoute }) {
   return (
-    <Card sx={{ margin: "auto", maxWidth: 345 }}  >
+    <Card sx={{ margin: "auto", maxWidth: 345, marginBottom:'30px' }}  >
       <CardMedia
         component="img"
         alt="green iguana"
@@ -23,9 +24,15 @@ function ConstructerCard({ title, image }) {
 
       </CardContent>
       <CardActions>
-        <Button size="small">View</Button>
+        <Link to={targetRoute}>
+          <Button size="small"  >
+            View
+          </Button>
+        </Link>
+
 
       </CardActions>
+
     </Card>
 
 
