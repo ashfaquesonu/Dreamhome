@@ -26,7 +26,7 @@ const ImageUploadBox = () => {
 
   return (
     <div style={{marginLeft:'150px' , marginTop:'50px' }}>
-      <div id="upload-box" style={{ border: '2px dashed #aaa', borderRadius: '8px', padding: '20px', textAlign: 'center', cursor: 'pointer', width: '300px', height: '200px' ,position: 'relative',
+      <div id="upload-box" style={{ border: '3px dashed #aaa', borderRadius: '8px', padding: '20px', textAlign: 'center', cursor: 'pointer', width: '350px', height: '250px' ,position: 'relative',
           overflow: 'hidden' , marginRight:'700px' , marginBottom:'400px'}}>
         <label htmlFor="file-input">
           <span>Upload photo</span>

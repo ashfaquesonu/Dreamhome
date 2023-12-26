@@ -21,7 +21,7 @@ function AiInterior() {
 
   return (
     <>
-      <Paper elevation={3} sx={{marginY: 5, marginX: 8, padding: 5, backgroundColor: "#28296b" }} >
+      <Paper elevation={3} sx={{ marginY: 5, marginX: 8, padding: 5, backgroundColor: "#28296b" }} >
         <Box>
           <Typography variant='h6' color="white">
             Upload a photo or image
@@ -30,7 +30,7 @@ function AiInterior() {
             Upload a photo or image of room whose appearance you want to improve
           </Typography>
         </Box>
-        <Button variant="contained" endIcon={<AutoAwesomeIcon />} sx={{display:'flex' , marginLeft:"900px"}}>
+        <Button variant="contained" endIcon={<AutoAwesomeIcon />} sx={{ display: 'flex', marginLeft: "900px" }}>
           Design this room
         </Button>
       </Paper>
@@ -67,9 +67,14 @@ function AiInterior() {
         </FormControl>
       </Box>
 
-     <ImageUploadBox />
-     <OutputBox/>
+      <ImageUploadBox />
       
+
+      <Box sx={{marginLeft:'600px',marginTop:'-693px'}}>
+
+        <OutputBox />
+      </Box>
+
 
 
 

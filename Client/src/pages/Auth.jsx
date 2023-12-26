@@ -174,7 +174,7 @@ export default function Auth() {
                 )}
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2" color="secondary">
+                    <Link href="#" variant="body2" color="primary">
                       Forgot password?
                     </Link>
                   </Grid>
@@ -183,7 +183,7 @@ export default function Auth() {
                       style={{ cursor: 'pointer' }}
                       onClick={() => setIsLogin((prev) => !prev)}
                       variant="body2"
-                      color="secondary"
+                      color="primary"
                     >
                       {isLogin
                         ? "Don't have an account? Sign Up"
@@ -194,7 +194,6 @@ export default function Auth() {
                 <Button
                   type="submit"
                   fullWidth
-                  color="secondary"
                   variant="contained"
                   sx={{ mt: 3, mb: 2 ,backgroundColor:'blue'}}
                 >
