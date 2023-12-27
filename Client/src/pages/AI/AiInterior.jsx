@@ -5,10 +5,14 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import ImageUploadBox from '../AI/AiInput'
 import OutputBox from '../AI/AiImage'
+import FileBase64 from 'react-file-base64'
+import { ai } from '../../action/ai';
 
 function AiInterior() {
   const [selectedModel, setSelectedModel] = React.useState('');
   const [room, setRoom] = useState('')
+  const [image, setImage] = useState(null)
+  const [aiImage ,setAiImage] = useState(null)
 
   const handleModelChange = (event) => {
     setSelectedModel(event.target.value);
@@ -17,7 +21,10 @@ function AiInterior() {
   const handleRoomChange = (event) => {
     setRoom(event.target.value)
   }
-
+const handleCreateDesign  = async()=>{
+  const aiImage = await ai(selectedModel,room,image)
+  setAiImage(aiImage)
+}
 
   return (
     <>
@@ -30,11 +37,10 @@ function AiInterior() {
             Upload a photo or image of room whose appearance you want to improve
           </Typography>
         </Box>
-        <Button variant="contained" endIcon={<AutoAwesomeIcon />} sx={{ display: 'flex', marginLeft: "900px" }}>
+        <Button onClick={handleCreateDesign} variant="contained" endIcon={<AutoAwesomeIcon />} sx={{ display: 'flex', marginLeft: "900px" }}>
           Design this room
         </Button>
       </Paper>
-
       <Box sx={{ display: 'flex', marginLeft: '60px' }}>
         <FormControl sx={{ width: "300px" }}>
           <InputLabel id="fruitSelectLabel">Select a model</InputLabel>
@@ -67,12 +73,12 @@ function AiInterior() {
         </FormControl>
       </Box>
 
-      <ImageUploadBox />
+      <ImageUploadBox setImage={setImage} image={image} />
       
 
       <Box sx={{marginLeft:'600px',marginTop:'-693px'}}>
 
-        <OutputBox />
+        <OutputBox  aiImage={aiImage}/>
       </Box>
 
 

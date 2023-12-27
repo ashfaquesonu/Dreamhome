@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-const ImageUploadBox = () => {
+import FileBase64 from 'react-file-base64'
+const ImageUploadBox = ({setImage,image}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [filePreview , setFilePreview] = useState(null)
  
-
+  
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -30,13 +31,18 @@ const ImageUploadBox = () => {
           overflow: 'hidden' , marginRight:'700px' , marginBottom:'400px'}}>
         <label htmlFor="file-input">
           <span>Upload photo</span>
-          <input type="file" id="file-input" style={{ display: 'none'  }} onChange={handleFileChange} />
+          <FileBase64
+              type='file'
+              multiple={false}
+              onDone={({ base64 }) => setImage( base64 )}
+            />
         </label>
-        {filePreview && (
+
+        {image && (
             <img 
-            src={filePreview}
+            src={image}
             alt='slected file'
-            style={{maxWidth:'100%' , Height: '100%' ,position: 'absolute',  left: 0, right: 0, bottom: 0,}}
+            style={{maxWidth:'100%' , Height: '100%' ,position: 'absolute',  left: 0, right: 0, bottom: 0}}
 
             />
         )}
