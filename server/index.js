@@ -4,6 +4,7 @@ import connectDB from './config/db.js';
 import cors from 'cors';
 import bodyParser from 'body-parser'; // Add this import
 import aiRoute from './routes/aiRoutes.js';
+import userRoute from './routes/userRoute.js'
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors());
 connectDB();
 
 app.use('/api/ai', aiRoute);
+app.use('/api/users', userRoute)
 
 const port = process.env.PORT || 4000; // Use process.env.PRT if available
 

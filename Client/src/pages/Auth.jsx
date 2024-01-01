@@ -14,34 +14,38 @@ import { Grid } from '@mui/material'
 //import { login, registerUser } from '../actions/userActions'
 //import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { login, registerUser } from '../action/userAction'
+import { useMyContext } from '../context/userContext'
 
 export default function Auth() {
- // const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation();
+  
+  const { user,updateMyState } = useMyContext();
 
- // const {isAuthenticated,user} = useSelector((state) => state.user)
+  // const {isAuthenticated,user} = useSelector((state) => state.user)
 
   const [isLogin, setIsLogin] = React.useState(false)
 
   const handleFormSubmit = (values) => {
-   // isLogin ? dispatch(login(values)) : dispatch(registerUser(values))
-   console.log(values);
+    isLogin ? login(values,updateMyState) : registerUser(values,updateMyState);
+    console.log(values);
   }
 
-//   const inputStyles = {
-//     background: colors.primary[400], // Change this to your desired background color
-//   }
+  //   const inputStyles = {
+  //     background: colors.primary[400], // Change this to your desired background color
+  //   }
 
-//   useEffect(() => {
-//     if (isAuthenticated && user.role !== 'user') {
-//       navigate('/dashboard');
-//       return;
-//     }else if (isAuthenticated && user.role === 'user') {
-//       navigate('/home');
-//       return;
-//     }
-//   }, [isAuthenticated, navigate, user]);
+    useEffect(() => {
+      if (user !== null) {
+        navigate('/');
+        return;
+      } else {
+        navigate('/auth');
+        return;
+      }
+    }, [navigate, user]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -97,9 +101,9 @@ export default function Auth() {
                   />
                 )}
                 <TextField
-                //   InputProps={{
-                //     style: inputStyles,
-                //   }}
+                  //   InputProps={{
+                  //     style: inputStyles,
+                  //   }}
                   margin="normal"
                   fullWidth
                   required
@@ -133,9 +137,9 @@ export default function Auth() {
                   />
                 )}
                 <TextField
-                //   InputProps={{
-                //     style: inputStyles,
-                //   }}
+                  //   InputProps={{
+                  //     style: inputStyles,
+                  //   }}
                   margin="normal"
                   fullWidth
                   required
@@ -195,7 +199,7 @@ export default function Auth() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 ,backgroundColor:'blue'}}
+                  sx={{ mt: 3, mb: 2, backgroundColor: 'blue' }}
                 >
                   {isLogin ? 'Sign in' : 'Register'}
                 </Button>

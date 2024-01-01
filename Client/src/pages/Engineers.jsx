@@ -1,5 +1,6 @@
 import React from 'react';
 import CardDetails from '../Component/CardDetails';
+import Modal from '../Component/Modal';
 
 
 function Engineers() {
@@ -14,6 +15,7 @@ function Engineers() {
       <CardDetails />
       <CardDetails /> 
       <CardDetails />
+       <Modal/> 
     </div>
   );
 }

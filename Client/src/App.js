@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import Builder from './Component/Builders/Builder';
 import EngineerCard from '../src/Component/Builders/ConstructerCard'
 import Auth from './pages/Auth';
+import { MyContextProvider } from './context/userContext';
 
 
 
@@ -54,8 +55,9 @@ function App() {
     <div>
       <main className='content'>
         
+      
+        <MyContextProvider>
         {shouldShowNavbar() && <Navbar />}
-        
         <Routes>
 
           <Route path='/' element={<Home />} />
@@ -67,6 +69,7 @@ function App() {
           <Route path='/ai-interior' element={<AiInterior />} />
           <Route path='/admin' element={<Admin/>}/>
         </Routes>
+        </MyContextProvider>
       </main>
 
 

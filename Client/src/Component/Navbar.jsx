@@ -13,15 +13,17 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import {  useNavigate } from 'react-router-dom';
+import { useMyContext } from '../context/userContext';
 
 
 
 function Navbar() {
-    const pages = ['home',  'engineers', 'architectures', 'projects', 'ai-interior','about'];
+    const pages = ['home',  'engineers', 'architectures', 'projects', 'ai-interior'];
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
     const navigate = useNavigate();
-
+    const { user,updateMyState } = useMyContext();
+console.log(user)
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -40,6 +42,17 @@ function Navbar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    const handleLogin = ()=>{
+        navigate('/auth')
+    }
+    const handleProfile = (setting)=>{
+        handleCloseNavMenu();
+        if(setting === 'Logout'){
+            updateMyState(null);
+
+        }
+        
+    }
     return (
         <AppBar position="sticky" style={{ background: ' #001c3d', top: "0" }}>
             <Container maxWidth="xl" >
@@ -133,8 +146,9 @@ function Navbar() {
                             </Button>
                         ))}
                     </Box>
-
-                    <Box sx={{ flexGrow: 0 }}>
+                    {user === null ? (
+                        <Button onClick={handleLogin}>Login</Button>
+                    ):(<Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -157,12 +171,14 @@ function Navbar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={()=>handleProfile(setting)}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
-                    </Box>
+                    </Box>)}
+
+                    
                 </Toolbar>
             </Container>
         </AppBar>

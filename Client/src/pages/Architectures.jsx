@@ -1,5 +1,6 @@
 import React from 'react';
 import CardDetails from '../Component/CardDetails';
+import Modal from '../Component/Modal';
 
 function Architectures() {
   return (
@@ -13,6 +14,8 @@ function Architectures() {
       <CardDetails />
       <CardDetails />
       <CardDetails />
+      <Modal/>
+
     </div>
   );
 }
