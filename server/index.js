@@ -5,7 +5,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser'; // Add this import
 import aiRoute from './routes/aiRoutes.js';
 import userRoute from './routes/userRoute.js'
-
+import engineerRoute from './routes/engineerRoute.js'
 dotenv.config();
 
 const app = express();
@@ -17,6 +17,7 @@ connectDB();
 
 app.use('/api/ai', aiRoute);
 app.use('/api/users', userRoute)
+app.use('/api/engineers', engineerRoute)
 
 const port = process.env.PORT || 4000; // Use process.env.PRT if available
 
