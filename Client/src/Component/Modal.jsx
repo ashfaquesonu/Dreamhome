@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import Form from './AddField'
+import { useSelector } from 'react-redux'
 
 const style = {
   position: 'absolute',
@@ -18,11 +19,11 @@ const style = {
 }
 
 export default function BasicModal({ open, setOpen, setId, id }) {
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
+  const { user } = useSelector(
+    (state) => state.user
+  )
   const handleClose = () => {
     setOpen(false)
-    setId(null)
   }
 
   return (
@@ -33,7 +34,9 @@ export default function BasicModal({ open, setOpen, setId, id }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>{/* <Form engineer = {engineer}/> */}</Box>
+        <Box sx={style}>
+          <Form user={user}/>
+        </Box>
       </Modal>
     </div>
   )

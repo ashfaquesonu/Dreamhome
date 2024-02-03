@@ -1,22 +1,23 @@
 import axios from "axios";
+import { loginSuccess } from "../reducers/userReducer";
 
-export const addEngineers = async (userData) => {
-    try {
-        const { data } = await axios.post('/api/engineers', {
-            userData
-        });
-        console.log(data);
-    } catch (error) {
-        console.error('Error:', error);
+// export const addEngineers = async (userData) => {
+//     try {
+//         const { data } = await axios.post('/api/engineers', {
+//             userData
+//         });
+//         console.log(data);
+//     } catch (error) {
+//         console.error('Error:', error);
 
-        if (error.response && error.response.data) {
-            const errorMessage = error.response.data.message;
-            console.error('Server Error Message:', errorMessage);
-        } else {
-            console.error('Generic Error');
-        }
-    }
-};
+//         if (error.response && error.response.data) {
+//             const errorMessage = error.response.data.message;
+//             console.error('Server Error Message:', errorMessage);
+//         } else {
+//             console.error('Generic Error');
+//         }
+//     }
+// };
 
 export const getAllEngineers = async () => {
     try {
@@ -35,12 +36,14 @@ export const getAllEngineers = async () => {
     }
 };
 
-export const updateEngineer = async (engineerId, userData) => {
+export const updateEngineer = (engineerId, userData)=>async(dispatch) => {
+    console.log(userData);
     try {
         const { data } = await axios.put(`/api/engineers/updateEngineer/${engineerId}`, {
             userData
         });
-        console.log(data);
+        dispatch(loginSuccess(data))
+        localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
         console.error('Error:', error);
 

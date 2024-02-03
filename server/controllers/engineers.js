@@ -1,54 +1,59 @@
 import expressAsyncHandler from "express-async-handler";
-import Engineers from "../models/engineersModal.js";
+import User from "../models/userModel.js";
 
-export const addEngineers = expressAsyncHandler(async (req, res) => {
+// export const addEngineers = expressAsyncHandler(async (req, res) => {
 
-    const { name, description, number, instagram, whatsapp,email,image, facebook, linkedin } = req.body.userData;
-    console.log(req.body.userData)
+//     const { name, description, number, instagram, whatsapp,email,image, facebook, linkedin } = req.body.userData;
+//     console.log(req.body.userData)
 
-    const user = await Engineers.create({
-        name,
-        description,
-        number,
-        instagram,
-        whatsapp,
-        facebook,
-        linkedin,
-        email,
-        image
-    })
-    console.log(user)
-    if (user) {
-        res.status(200).json(user)
-    } else {
-        res.status(400)
-        throw new Error("Invalid user data")
-    }
-})
+//     const user = await Engineers.create({
+//         name,
+//         description,
+//         number,
+//         instagram,
+//         whatsapp,
+//         facebook,
+//         linkedin,
+//         email,
+//         image
+//     })
+//     console.log(user)
+//     if (user) {
+//         res.status(200).json(user)
+//     } else {
+//         res.status(400)
+//         throw new Error("Invalid user data")
+//     }
+// })
 
 // Get All Engineers
 export const getAllEngineers = expressAsyncHandler(async (req, res) => {
-    const engineers = await Engineers.find({});
-    
-    if (engineers) {
-        res.status(200).json(engineers);
-    } else {
-        res.status(404);
-        throw new Error("Engineers not found");
+    try {
+        const engineers = await User.find({ engineer: true });
+        console.log(engineers)
+        if (engineers) {
+            res.status(200).json(engineers);
+        } else {
+            res.status(404);
+            throw new Error("Engineers not found");
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
 // Update Engineer
 export const updateEngineer = expressAsyncHandler(async (req, res) => {
-    const engineerId = req.params.id;
-    const { name, description, number, instagram, whatsapp, email, image, facebook, linkedin } = req.body.userData;
+    const userId = req.params.id;
+    console.log(req.body);
+    const {userName, description, contactno, instagram, whatsapp, email, image, facebook, linkedin } = req.body.userData;
 
-    const updatedEngineer = await Engineers.findByIdAndUpdate(
-        engineerId,
+    const updatedEngineer = await User.findByIdAndUpdate(
+        userId,
         {
-            name,
+            userName,
             description,
-            number,
+            contactno,
             instagram,
             whatsapp,
             facebook,
@@ -68,9 +73,9 @@ export const updateEngineer = expressAsyncHandler(async (req, res) => {
 });
 // Delete Engineer
 export const deleteEngineer = expressAsyncHandler(async (req, res) => {
-    const engineerId = req.params.id;
+    const userId = req.params.id;
 
-    const deletedEngineer = await Engineers.findByIdAndDelete(engineerId);
+    const deletedEngineer = await User.findByIdAndDelete(userId);
 
     if (deletedEngineer) {
         res.status(200).json({ message: "Engineer deleted successfully" });

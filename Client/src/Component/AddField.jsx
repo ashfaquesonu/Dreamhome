@@ -11,15 +11,17 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { addEngineers } from '../action/engineer';
+import { addEngineers, updateEngineer } from '../action/engineer';
 import FileBase64 from 'react-file-base64';
+import { useDispatch } from 'react-redux';
 
-export default function InputWithIcon({ engineer }) {
-  console.log(engineer)
+export default function InputWithIcon({ user }) {
+  console.log(user)
+  const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({
-    name: '',
+    userName: '',
     description: '',
-    number: '',
+    contactno: '',
     email: '',
     instagram: '',
     whatsapp: '',
@@ -29,24 +31,24 @@ export default function InputWithIcon({ engineer }) {
   const [image, setImage] = React.useState(null);
 
   useEffect(() => {
-    if (engineer) {
-      // Set initial values based on engineer
+    if (user) {
+      // Set initial values based on user
       setFormData({
-        name: engineer.name || '',
-        description: engineer.description || '',
-        number: engineer.number || '',
-        email: engineer.email || '',
-        instagram: engineer.instagram || '',
-        whatsapp: engineer.whatsapp || '',
-        facebook: engineer.facebook || '',
-        linkedin: engineer.linkedin || '',
+        userName: user.userName || '',
+        description: user.description || '',
+        contactno: user.contactno || '',
+        email: user.email || '',
+        instagram: user.instagram || '',
+        whatsapp: user.whatsapp || '',
+        facebook: user.facebook || '',
+        linkedin: user.linkedin || '',
       });
     } else {
       // Set initial values to empty strings
       setFormData({
-        name: '',
+        userName: '',
         description: '',
-        number: '',
+        contactno: '',
         email: '',
         instagram: '',
         whatsapp: '',
@@ -54,11 +56,11 @@ export default function InputWithIcon({ engineer }) {
         linkedin: '',
       });
     }
-  }, [engineer]);
+  }, [user]);
 
   const handleButtonClick = () => {
     console.log('Form Data:', { ...formData, image });
-    addEngineers({ ...formData, image });
+    dispatch(updateEngineer(user._id,{ ...formData, image }));
   };
 
   const handleInputChange = (field) => (event) => {
@@ -81,8 +83,8 @@ export default function InputWithIcon({ engineer }) {
         }}
         fullWidth
         margin="normal"
-        value={formData.name}
-        onChange={handleInputChange('name')}
+        value={formData.userName}
+        onChange={handleInputChange('userName')}
       />
       <TextField
         label="Description"
@@ -109,8 +111,8 @@ export default function InputWithIcon({ engineer }) {
         }}
         fullWidth
         margin="normal"
-        value={formData.number}
-        onChange={handleInputChange('number')}
+        value={formData.contactno}
+        onChange={handleInputChange('contactno')}
       />
       <TextField
         label="Email"

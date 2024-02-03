@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Modal from '../Component/Modal';
 import { deleteEngineer } from '../action/engineer';
 
-const CardDetails = ({ engineer,handleOpen,open,setOpen,setId }) => {
+const CardDetails = ({ engineer}) => {
   const [showContactNumber, setShowContactNumber] = useState(false);
   const { name, description, number } = engineer;
 
@@ -21,10 +21,7 @@ const CardDetails = ({ engineer,handleOpen,open,setOpen,setId }) => {
     setShowContactNumber(true);
   };
 
-  const handleEditButtonClick = () => {
-    handleOpen()
-    setId(engineer._id)
-  };
+
 
   const handleDeleteButtonClick = () => {
     deleteEngineer(engineer._id)
@@ -34,8 +31,8 @@ const CardDetails = ({ engineer,handleOpen,open,setOpen,setId }) => {
     <div className='upc'>
       <div className="gradiant"></div>
       <div className="profile-down">
-        <img src={engineer.image} alt="" />
-        <div className="profile-title">{name}</div>
+        <img src={team} alt="" />
+        <div className="profile-title">{engineer.userName}</div>
         <div className="profile-description">{description}</div>
         <Stack direction="row" justifyContent="space-evenly">
           {engineer.instagram && (
@@ -62,9 +59,6 @@ const CardDetails = ({ engineer,handleOpen,open,setOpen,setId }) => {
         <Stack direction="row" spacing={2} justifyContent='space-evenly' marginTop="15px" >
           <Button variant='contained' startIcon={<MessageIcon/>} >Message</Button>
           <Button variant='contained' onClick={handleCallButtonClick}>Call</Button>
-          <IconButton onClick={handleEditButtonClick}>
-            <EditIcon />
-          </IconButton>
           <IconButton onClick={handleDeleteButtonClick}>
             <DeleteIcon />
           </IconButton>

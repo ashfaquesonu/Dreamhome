@@ -8,8 +8,8 @@ export const login =({ email, password })=> async(dispatch) => {
             email,
             password,
         });
-        dispatch(loginSuccess(data))
-        localStorage.setItem('userInfo', JSON.stringify(data));
+        dispatch(loginSuccess(data.user))
+        localStorage.setItem('userInfo', JSON.stringify(data.user));
     } catch (error) {
         console.error('Error:', error);
         if (error.response && error.response.data) {
@@ -28,8 +28,8 @@ export const registerUser =  (userData)=>async (dispatch) => {
         const { data } = await axios.post('/api/users', {
             userData
         });
-        dispatch(loginSuccess(data))
-        localStorage.setItem('userInfo', JSON.stringify(data));
+        dispatch(loginSuccess(data.user))
+        localStorage.setItem('userInfo', JSON.stringify(data.user));
     } catch (error) {
         dispatch(loginFailure());
         console.error('Error:', error);

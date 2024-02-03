@@ -24,25 +24,28 @@ const UsersList = () => {
   const user = useSelector((state) => state.user.user)
   const { users, loading, error } = useSelector((state) => state.teamList)
 
-    useEffect(() => {
-      if (user && user.role !== 'admin') {
-        if (!users.length > 0) dispatch(teams)
-      } else {
-        navigate('/auth')
-      }
-    }, [dispatch, navigate, user, users])
+  useEffect(() => {
+    if (user && user.role !== 'admin') {
+      if (!users.length > 0) dispatch(teams)
+    } else {
+      navigate('/auth')
+    }
+  }, [dispatch, navigate, user, users])
 
-    const rows = users.map((user, index) => {
-      return {
-        id: user._id, // Use the index as the id
-        phone: user.contactno,
-        email: user.email,
-        access: user.role,
-        name: user.userName,
-       
-        // Add other properties as needed
-      }
-    })
+  const rows = users.map((user, index) => {
+    return {
+      id: user._id, // Use the index as the id
+      phone: user.contactno,
+      email: user.email,
+      access: user.role,
+      name: user.userName,
+      isAdmin: user.isAdmin,
+      engineer: user.engineer,
+      architecture: user.architecture,
+
+      // Add other properties as needed
+    }
+  })
 
   const columns = [
     { field: 'id', headerName: 'ID' },
@@ -64,45 +67,55 @@ const UsersList = () => {
       flex: 1,
     },
 
-    // {
-    //   field: 'accessLevel',
-    //   headerName: 'Access Level',
-    //   flex: 1,
-    //   renderCell: ({ row }) => {
-    //     const handleAccessLevelClick = (userId) => {
-    //       console.log(row)
-    //       if (row.access === 'seller') {
-    //         // Implement your logic here to handle the click event and get the user's ID (userId)
-    //         setCurrentModelId(userId)
-    //         handleOpen()
-    //       }
-    //     }
+    {
+      field: 'accessLevel',
+      headerName: 'Access Level',
+      flex: 1,
+      renderCell: ({ row }) => {
+        const handleAccessLevelClick = (userId) => {
+          console.log(row)
+          if (row.access === 'seller') {
+            // Implement your logic here to handle the click event and get the user's ID (userId)
+            setCurrentModelId(userId)
+            handleOpen()
+          }
+        }
 
-    //     return (
-    //       <Box
-    //         width="60%"
-    //         p="5px"
-    //         display="flex"
-    //         justifyContent="center"
-    //         // backgroundColor={
-    //         //   row.access === 'admin'
-    //         //     ? colors.greenAccent[600]
-    //         //     : row.access === 'seller'
-    //         //     ? colors.greenAccent[700]
-    //         //     : colors.greenAccent[700]
-    //         // }
-    //         borderRadius="4px"
-    //         onClick={() => handleAccessLevelClick(row.id)}
-    //         style={{ cursor: 'pointer' }}
-    //       >
-    //         {row.access === 'admin' && <AdminPanelSettingsOutlinedIcon />}
-    //         {row.access === 'seller' && <SecurityOutlinedIcon />}
-    //         {row.access === 'user' && <LockOpenOutlinedIcon />}
-    //         <Typography sx={{ ml: '5px' }}>{row.access}</Typography>
-    //       </Box>
-    //     )
-    //   },
-    // },
+        return (
+          <Box
+            width="60%"
+            p="5px"
+            display="flex"
+            justifyContent="center"
+            backgroundColor={
+              row.isAdmin === true
+                ? 'grey' // Change this to the desired color for seller
+                : 'green' // Default color for other cases
+            }
+            borderRadius="4px"
+            onClick={() => handleAccessLevelClick(row.id)}
+            style={{ cursor: 'pointer' }}
+          >
+            {row.isAdmin ? (
+              <AdminPanelSettingsOutlinedIcon />
+            ) : (
+              <LockOpenOutlinedIcon />
+            )}
+            <Typography sx={{ ml: '5px' }}>
+              {row.isAdmin
+                ? 'Admin'
+                : row.engineer && row.architecture
+                ? 'Both'
+                : row.engineer
+                ? 'Engineer'
+                : row.architecture
+                ? 'Architecture'
+                : 'User'}
+            </Typography>
+          </Box>
+        )
+      },
+    },
   ]
 
   return (
@@ -112,31 +125,30 @@ const UsersList = () => {
         m="40px 0 0 0"
         height="75vh"
         sx={{
-            '& .MuiDataGrid-root': {
-              border: 'none',
-              backgroundColor: 'lightblue',
-            },
-            '& .MuiDataGrid-cell': {
-              borderBottom: 'none',
-            },
-            '& .name-column--cell': {
-              color: 'blue', // Change to your desired color
-            },
-            '& .MuiDataGrid-columnHeaders': {
-              borderBottom: 'none',
-            },
-            '& .MuiDataGrid-virtualScroller': {
-              backgroundColor: 'lightgray', // Change to your desired color
-            },
-            '& .MuiDataGrid-footerContainer': {
-              borderTop: 'none',
-              backgroundColor: 'lightblue', // Change to your desired color
-            },
-            '& .MuiCheckbox-root': {
-              color: 'green', // Change to your desired color
-            },
-          }}
-          
+          '& .MuiDataGrid-root': {
+            border: 'none',
+            backgroundColor: 'lightblue',
+          },
+          '& .MuiDataGrid-cell': {
+            borderBottom: 'none',
+          },
+          '& .name-column--cell': {
+            color: 'blue', // Change to your desired color
+          },
+          '& .MuiDataGrid-columnHeaders': {
+            borderBottom: 'none',
+          },
+          '& .MuiDataGrid-virtualScroller': {
+            backgroundColor: 'lightgray', // Change to your desired color
+          },
+          '& .MuiDataGrid-footerContainer': {
+            borderTop: 'none',
+            backgroundColor: 'lightblue', // Change to your desired color
+          },
+          '& .MuiCheckbox-root': {
+            color: 'green', // Change to your desired color
+          },
+        }}
       >
         <DataGrid
           checkboxSelection={false}

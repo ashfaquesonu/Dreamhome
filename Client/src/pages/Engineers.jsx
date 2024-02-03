@@ -6,10 +6,8 @@ import { Button } from '@mui/material'
 
 function Engineers() {
   const [engineers, setEngineers] = useState([])
-  const [id, setId] = useState(null)
-  const [open, setOpen] = React.useState(false)
 
-  const handleOpen = () => setOpen(true)
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,14 +37,10 @@ function Engineers() {
           <CardDetails
             key={item._id}
             engineer={item}
-            handleOpen={handleOpen}
-            open={open}
-            setOpen={setOpen}
-            setId={setId}
+           
           />
         ))}
-        <Button onClick={handleOpen}>➕</Button>
-        <Modal open={open} setOpen={setOpen} id={id} />
+      
       </div>
     </>
   )

@@ -15,16 +15,10 @@ export const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email })
 
   if (user && await user.matchPassword(password)) {
-    res.json({
-      _id: user._id,
-      name: user.userName,
-      email: user.email,
-      role: user.role,
-      isAdmin: user.isAdmin,
-      engineer: user.engineer,
-      architecture: user.architecture,
+    res.status(200).json({
+      user,
       token: generateToken(user._id),
-    })
+  });
   } else {
     res.status(404);
     res.json({ message: "Invalid Username or Password" });
@@ -60,14 +54,9 @@ export const registerUser = asyncHandler(async (req, res) => {
 console.log(user)
   if (user) {
     res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      engineer: user.engineer,
-      architecture: user.architecture,
+      user,
       token: generateToken(user._id),
-    })
+  });
   } else {
     res.status(400)
     throw new Error("Invalid user data")
