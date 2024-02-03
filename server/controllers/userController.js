@@ -20,6 +20,9 @@ export const authUser = asyncHandler(async (req, res) => {
       name: user.userName,
       email: user.email,
       role: user.role,
+      isAdmin: user.isAdmin,
+      engineer: user.engineer,
+      architecture: user.architecture,
       token: generateToken(user._id),
     })
   } else {
@@ -52,6 +55,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     contactno: contact,
+
   })
 console.log(user)
   if (user) {
@@ -60,6 +64,8 @@ console.log(user)
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      engineer: user.engineer,
+      architecture: user.architecture,
       token: generateToken(user._id),
     })
   } else {
@@ -73,13 +79,13 @@ console.log(user)
 // @access  Private/Admin
 export const getUsers = asyncHandler(async (req, res) => {
   try {
-    const customOrder = { seller: 0, user: 1, admin: 2 };
+   // const customOrder = { seller: 0, user: 1, admin: 2 };
 
     // Find and sort the documents in the User collection
     const sortedUsers = await User.find({})
-      .sort({ role: 1 }) // Sort in ascending order based on "role"
-      .exec();
-    sortedUsers.sort((a, b) => customOrder[a.role] - customOrder[b.role]);
+      // .sort({ role: 1 }) // Sort in ascending order based on "role"
+      // .exec();
+   // sortedUsers.sort((a, b) => customOrder[a.role] - customOrder[b.role]);
 
     res.status(200).json(sortedUsers)
   } catch (error) {

@@ -12,7 +12,7 @@ import Admin from './pages/Admin';
 import Builder from './Component/Builders/Builder';
 import EngineerCard from '../src/Component/Builders/ConstructerCard'
 import Auth from './pages/Auth';
-import { MyContextProvider } from './context/userContext';
+import Users from './pages/UsersList';
 
 
 
@@ -54,12 +54,9 @@ function App() {
   return (
     <div>
       <main className='content'>
-        
-      
-        <MyContextProvider>
+
         {shouldShowNavbar() && <Navbar />}
         <Routes>
-
           <Route path='/' element={<Home />} />
           <Route path='/auth' element={<Auth />} />
           <Route path='/about' element={<About />} />
@@ -67,9 +64,9 @@ function App() {
           <Route path='/architectures' element={<Architectures architectures={architectureData} />} />
           <Route path='/projects' element={<Project />} />
           <Route path='/ai-interior' element={<AiInterior />} />
+          <Route path='/users' element={<Users/>}/>
           <Route path='/admin' element={<Admin/>}/>
         </Routes>
-        </MyContextProvider>
       </main>
 
 

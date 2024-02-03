@@ -13,17 +13,26 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import {  useNavigate } from 'react-router-dom';
-import { useMyContext } from '../context/userContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../reducers/userReducer';
 
 
 
 function Navbar() {
     const pages = ['home',  'engineers', 'architectures', 'projects', 'ai-interior'];
+
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
     const navigate = useNavigate();
-    const { user,updateMyState } = useMyContext();
-console.log(user)
+    const dispatch = useDispatch();
+
+    const { isAuthenticated, user, loading, error } = useSelector(
+        (state) => state.user
+      )
+       console.log(user)
+        if(!user.admin){
+            pages.push('users')
+        }
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -48,8 +57,9 @@ console.log(user)
     const handleProfile = (setting)=>{
         handleCloseNavMenu();
         if(setting === 'Logout'){
-            updateMyState(null);
-
+            localStorage.removeItem('userInfo');
+            dispatch(logout())
+            navigate('/auth')
         }
         
     }

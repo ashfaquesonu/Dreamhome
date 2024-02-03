@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean, // Change the type to Boolean
     default: false, // Set the default value to false
   },
+  architecture: { // Change 'role' to 'isAdmin'
+    type: Boolean, // Change the type to Boolean
+    default: false, // Set the default value to false
+  },
+  engineer: { // Change 'role' to 'isAdmin'
+    type: Boolean, // Change the type to Boolean
+    default: false, // Set the default value to false
+  },
   createdAt: {
     type: Date,
     default: Date.now,

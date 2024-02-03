@@ -15,21 +15,24 @@ import { Grid } from '@mui/material'
 //import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { login, registerUser } from '../action/userAction'
-import { useMyContext } from '../context/userContext'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Auth() {
   // const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation();
+  const dispatch = useDispatch();
   
-  const { user,updateMyState } = useMyContext();
+  const { isAuthenticated, user, loading, error } = useSelector(
+    (state) => state.user
+  )
 
   // const {isAuthenticated,user} = useSelector((state) => state.user)
 
   const [isLogin, setIsLogin] = React.useState(false)
 
   const handleFormSubmit = (values) => {
-    isLogin ? login(values,updateMyState) : registerUser(values,updateMyState);
+    isLogin ? dispatch(login(values)) : dispatch(registerUser(values));
     console.log(values);
   }
 
