@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CardDetails from '../Component/CardDetails'
 import Modal from '../Component/Modal'
-import { getAllEngineers } from '../action/engineer'
+import { getAllEngineers } from '../action/engAndArc'
 import { Button } from '@mui/material'
 
 function Engineers() {

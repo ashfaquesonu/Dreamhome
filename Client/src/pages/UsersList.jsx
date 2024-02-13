@@ -1,40 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Typography, useTheme } from '@mui/material'
-import { DataGrid } from '@mui/x-data-grid'
-
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined'
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined'
-import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined'
-import { useDispatch, useSelector } from 'react-redux'
-// import { teams } from '../../actions/userActions'
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, useTheme } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom'
-import { teams } from '../action/userAction'
-// import { formatDate } from '../../utils/DateConverter'
-// import BasicModal from '../../components/Model'
+
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+import { teams } from '../action/userAction';
+import AdminModel from '../Component/Model2';
 
 const UsersList = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false)
-  const [currentModelId, setCurrentModelId] = useState(null)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [open, setOpen] = useState(false);
+  const [currentModelUser, setCurrentModelUser] = useState(null);
+  
+  const handleOpen = (user) => {
+    setCurrentModelUser(user);
+    setOpen(true);
+  };
 
-  const user = useSelector((state) => state.user.user)
-  const { users, loading, error } = useSelector((state) => state.teamList)
+  const user = useSelector((state) => state.user.user);
+  const { users, loading, error } = useSelector((state) => state.teamList);
 
   useEffect(() => {
     if (user && user.role !== 'admin') {
-      if (!users.length > 0) dispatch(teams)
+      if (!users.length > 0) dispatch(teams);
     } else {
-      navigate('/auth')
+      navigate('/auth');
     }
-  }, [dispatch, navigate, user, users])
+  }, [dispatch, user, users]);
 
   const rows = users.map((user, index) => {
     return {
-      id: user._id, // Use the index as the id
+      id: user._id,
       phone: user.contactno,
       email: user.email,
       access: user.role,
@@ -42,10 +43,8 @@ const UsersList = () => {
       isAdmin: user.isAdmin,
       engineer: user.engineer,
       architecture: user.architecture,
-
-      // Add other properties as needed
-    }
-  })
+    };
+  });
 
   const columns = [
     { field: 'id', headerName: 'ID' },
@@ -53,9 +52,7 @@ const UsersList = () => {
       field: 'name',
       headerName: 'Name',
       flex: 1,
-      cellClassName: 'name-column--cell',
     },
-
     {
       field: 'phone',
       headerName: 'Phone Number',
@@ -66,20 +63,14 @@ const UsersList = () => {
       headerName: 'Email',
       flex: 1,
     },
-
     {
       field: 'accessLevel',
       headerName: 'Access Level',
       flex: 1,
       renderCell: ({ row }) => {
-        const handleAccessLevelClick = (userId) => {
-          console.log(row)
-          if (row.access === 'seller') {
-            // Implement your logic here to handle the click event and get the user's ID (userId)
-            setCurrentModelId(userId)
-            handleOpen()
-          }
-        }
+        const handleAccessLevelClick = (user) => {
+          handleOpen(user);
+        };
 
         return (
           <Box
@@ -88,12 +79,10 @@ const UsersList = () => {
             display="flex"
             justifyContent="center"
             backgroundColor={
-              row.isAdmin === true
-                ? 'grey' // Change this to the desired color for seller
-                : 'green' // Default color for other cases
+              row.isAdmin === true ? 'grey' : 'green'
             }
             borderRadius="4px"
-            onClick={() => handleAccessLevelClick(row.id)}
+            onClick={() => handleAccessLevelClick(row)}
             style={{ cursor: 'pointer' }}
           >
             {row.isAdmin ? (
@@ -113,59 +102,40 @@ const UsersList = () => {
                 : 'User'}
             </Typography>
           </Box>
-        )
+        );
       },
     },
-  ]
+  ];
 
   return (
-    <Box m="20px">
-      {/* <Header title="TEAM" subtitle="Managing the Team Members" /> */}
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          '& .MuiDataGrid-root': {
-            border: 'none',
-            backgroundColor: 'lightblue',
-          },
-          '& .MuiDataGrid-cell': {
-            borderBottom: 'none',
-          },
-          '& .name-column--cell': {
-            color: 'blue', // Change to your desired color
-          },
-          '& .MuiDataGrid-columnHeaders': {
-            borderBottom: 'none',
-          },
-          '& .MuiDataGrid-virtualScroller': {
-            backgroundColor: 'lightgray', // Change to your desired color
-          },
-          '& .MuiDataGrid-footerContainer': {
-            borderTop: 'none',
-            backgroundColor: 'lightblue', // Change to your desired color
-          },
-          '& .MuiCheckbox-root': {
-            color: 'green', // Change to your desired color
-          },
-        }}
-      >
-        <DataGrid
-          checkboxSelection={false}
-          rows={rows}
-          columns={columns}
-          loading={loading}
-          error={error}
-        />
-        {/* <BasicModal
+    <>
+      <Box m="20px">
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+        >
+          <DataGrid
+            checkboxSelection={false}
+            rows={rows}
+            columns={columns}
+            loading={loading}
+            error={error}
+          />
+        </Box>
+      </Box>
+      {open && (
+        <AdminModel
           open={open}
           setOpen={setOpen}
-          handleClose={handleClose}
-          id={currentModelId}
-        /> */}
-      </Box>
-    </Box>
-  )
-}
+          handleOpen={handleOpen}
+          name={currentModelUser?.name}
+          id={currentModelUser?.id}
+          engineer={currentModelUser?.engineer}
+          architecture={currentModelUser?.architecture}
+        />
+      )}
+    </>
+  );
+};
 
-export default UsersList
+export default UsersList;

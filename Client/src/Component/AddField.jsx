@@ -11,11 +11,11 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { addEngineers, updateEngineer } from '../action/engineer';
+import {profileUpdate} from '../action/engAndArc';
 import FileBase64 from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 
-export default function InputWithIcon({ user }) {
+export default function InputWithIcon({ user, handleClose }) {
   console.log(user)
   const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({
@@ -43,6 +43,7 @@ export default function InputWithIcon({ user }) {
         facebook: user.facebook || '',
         linkedin: user.linkedin || '',
       });
+      setImage(user.image); // Set the image
     } else {
       // Set initial values to empty strings
       setFormData({
@@ -60,7 +61,8 @@ export default function InputWithIcon({ user }) {
 
   const handleButtonClick = () => {
     console.log('Form Data:', { ...formData, image });
-    dispatch(updateEngineer(user._id,{ ...formData, image }));
+    dispatch(profileUpdate(user._id,{ ...formData, image }));
+    handleClose();
   };
 
   const handleInputChange = (field) => (event) => {
@@ -72,34 +74,37 @@ export default function InputWithIcon({ user }) {
 
   return (
     <Box>
-      <TextField
-        label="Name"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <AccountCircleIcon />
-            </InputAdornment>
-          ),
-        }}
-        fullWidth
-        margin="normal"
-        value={formData.userName}
-        onChange={handleInputChange('userName')}
-      />
-      <TextField
-        label="Description"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <DescriptionIcon />
-            </InputAdornment>
-          ),
-        }}
-        fullWidth
-        margin="normal"
-        value={formData.description}
-        onChange={handleInputChange('description')}
-      />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <TextField
+          label="Name"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AccountCircleIcon />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+          margin="normal"
+          value={formData.userName}
+          onChange={handleInputChange('userName')}
+          style={{ marginRight: '10px' }}
+        />
+        <TextField
+          label="Description"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <DescriptionIcon />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+          margin="normal"
+          value={formData.description}
+          onChange={handleInputChange('description')}
+        />
+      </div>
       <TextField
         label="Number"
         InputProps={{
@@ -185,6 +190,7 @@ export default function InputWithIcon({ user }) {
         value={formData.linkedin}
         onChange={handleInputChange('linkedin')}
       />
+      <img src={image} alt="Profile" style={{ maxWidth: '100px', maxHeight: '100px' }} />
       <FileBase64
         type='file'
         multiple={false}

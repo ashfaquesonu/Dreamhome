@@ -35,7 +35,7 @@ export default function BasicModal({ open, setOpen, setId, id }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Form user={user}/>
+          <Form user={user} handleClose={handleClose}/>
         </Box>
       </Modal>
     </div>

@@ -36,10 +36,10 @@ export const getAllEngineers = async () => {
     }
 };
 
-export const updateEngineer = (engineerId, userData)=>async(dispatch) => {
+export const profileUpdate = (engineerId, userData) => async (dispatch) => {
     console.log(userData);
     try {
-        const { data } = await axios.put(`/api/engineers/updateEngineer/${engineerId}`, {
+        const { data } = await axios.put(`/api/engineers/profileUpdate/${engineerId}`, {
             userData
         });
         dispatch(loginSuccess(data))
@@ -56,10 +56,30 @@ export const updateEngineer = (engineerId, userData)=>async(dispatch) => {
     }
 };
 
-export const deleteEngineer = async (engineerId) => {
+export const deleteUser = async (engineerId) => {
     try {
-        const { data } = await axios.delete(`/api/engineers/deleteEngineer/${engineerId}`);
+        const { data } = await axios.delete(`/api/engineers/deleteUser/${engineerId}`);
         console.log(data);
+    } catch (error) {
+        console.error('Error:', error);
+
+        if (error.response && error.response.data) {
+            const errorMessage = error.response.data.message;
+            console.error('Server Error Message:', errorMessage);
+        } else {
+            console.error('Generic Error');
+        }
+    }
+};
+
+
+export const updateRole = (userId, userData) => async (dispatch) => {
+    console.log(userData);
+    try {
+        const { data } = await axios.put(`/api/engineers/updateRole/${userId}`, {
+            userData
+        });
+
     } catch (error) {
         console.error('Error:', error);
 

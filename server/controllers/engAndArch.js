@@ -43,7 +43,7 @@ export const getAllEngineers = expressAsyncHandler(async (req, res) => {
 });
 
 // Update Engineer
-export const updateEngineer = expressAsyncHandler(async (req, res) => {
+export const profileUpdate = expressAsyncHandler(async (req, res) => {
     const userId = req.params.id;
     console.log(req.body);
     const {userName, description, contactno, instagram, whatsapp, email, image, facebook, linkedin } = req.body.userData;
@@ -72,13 +72,35 @@ export const updateEngineer = expressAsyncHandler(async (req, res) => {
     }
 });
 // Delete Engineer
-export const deleteEngineer = expressAsyncHandler(async (req, res) => {
+export const deleteUser = expressAsyncHandler(async (req, res) => {
     const userId = req.params.id;
 
     const deletedEngineer = await User.findByIdAndDelete(userId);
 
     if (deletedEngineer) {
         res.status(200).json({ message: "Engineer deleted successfully" });
+    } else {
+        res.status(404);
+        throw new Error("Engineer not found");
+    }
+});
+
+export const updateRole = expressAsyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    console.log(userId,req.body);
+     const {architecture, engineer} = req.body.userData;
+
+    const updatedEngineer = await User.findByIdAndUpdate(
+        userId,
+        {
+            engineer,
+            architecture,
+        },
+        { new: true } // Return the updated document
+    );
+
+    if (updatedEngineer) {
+        res.status(200).json(updatedEngineer);
     } else {
         res.status(404);
         throw new Error("Engineer not found");
