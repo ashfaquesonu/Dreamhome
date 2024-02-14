@@ -36,6 +36,23 @@ export const getAllEngineers = async () => {
     }
 };
 
+export const getAllArchitectures = async () => {
+    try {
+        const { data } = await axios.get('/api/engineers/getAllArchitectures');
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+
+        if (error.response && error.response.data) {
+            const errorMessage = error.response.data.message;
+            console.error('Server Error Message:', errorMessage);
+        } else {
+            console.error('Generic Error');
+        }
+    }
+};
+
 export const profileUpdate = (engineerId, userData) => async (dispatch) => {
     console.log(userData);
     try {
@@ -60,6 +77,7 @@ export const deleteUser = async (engineerId) => {
     try {
         const { data } = await axios.delete(`/api/engineers/deleteUser/${engineerId}`);
         console.log(data);
+        return data;
     } catch (error) {
         console.error('Error:', error);
 

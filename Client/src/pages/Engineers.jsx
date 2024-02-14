@@ -37,7 +37,7 @@ function Engineers() {
           <CardDetails
             key={item._id}
             engineer={item}
-           
+           setEngineers={setEngineers}
           />
         ))}
       

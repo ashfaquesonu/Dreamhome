@@ -11,10 +11,10 @@ import CallIcon from '@mui/icons-material/Call'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Modal from '../Component/Modal'
-import { deleteUser } from '../action/engAndArc'
+import { deleteUser, getAllArchitectures, getAllEngineers } from '../action/engAndArc'
 import { useSelector } from 'react-redux'
 
-const CardDetails = ({ engineer }) => {
+const CardDetails = ({ engineer,setArchitectures,setEngineers }) => {
   const [showContactNumber, setShowContactNumber] = useState(false)
   const { name, description, number } = engineer
 
@@ -26,8 +26,16 @@ const CardDetails = ({ engineer }) => {
     setShowContactNumber(true)
   }
 
-  const handleDeleteButtonClick = () => {
+  const handleDeleteButtonClick = async() => {
     deleteUser(engineer._id)
+    if(engineer.engineer){
+      const data = await getAllEngineers();
+      setEngineers(data)
+    }else if(engineer.architecture){
+      const data = await getAllArchitectures();
+      setArchitectures(data)
+    }
+    
   }
 console.log(engineer.image)
   return (

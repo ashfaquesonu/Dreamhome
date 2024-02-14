@@ -42,6 +42,21 @@ export const getAllEngineers = expressAsyncHandler(async (req, res) => {
     }
 });
 
+export const getAllArchitectures = expressAsyncHandler(async (req, res) => {
+    try {
+        const architecture = await User.find({ architecture: true });
+        console.log(architecture)
+        if (architecture) {
+            res.status(200).json(architecture);
+        } else {
+            res.status(404);
+            throw new Error("Engineers not found");
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 // Update Engineer
 export const profileUpdate = expressAsyncHandler(async (req, res) => {
     const userId = req.params.id;
@@ -78,7 +93,7 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
     const deletedEngineer = await User.findByIdAndDelete(userId);
 
     if (deletedEngineer) {
-        res.status(200).json({ message: "Engineer deleted successfully" });
+        res.status(200).json(deletedEngineer);
     } else {
         res.status(404);
         throw new Error("Engineer not found");
