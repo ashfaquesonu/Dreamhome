@@ -25,11 +25,11 @@ const userSchema = new mongoose.Schema({
   },
   architecture: { // Change 'role' to 'isAdmin'
     type: Boolean, // Change the type to Boolean
-    default: true, // Set the default value to false
+    default: false, // Set the default value to false
   },
   engineer: { // Change 'role' to 'isAdmin'
     type: Boolean, // Change the type to Boolean
-    default: true, // Set the default value to false
+    default: false, // Set the default value to false
   },
   image:{
     type: String,
