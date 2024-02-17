@@ -1,30 +1,37 @@
 import Replicate from 'replicate';
 
 export const aiRoute = async(req,res)=>{
-    console.log(req.body)
-  const image = req.body.image;
-  const theme = req.body.selectedModel;
-  const room = req.body.room;
+  //   console.log(req.body)
+  // const image = req.body.image;
+  // const theme = req.body.selectedModel;
+  // const room = req.body.room;
   //console.log(image,theme,room)         
 
   // 2. Initialize the replicate object with our Replicate API token
   const replicate = new Replicate({
-    auth: 'r8_aUhaVYZIcQaFL1hzpbdo7LmLuBpEb601xJOpN',
+    auth: 'r8_cLiMxXCfA9P6emftyKott0VG3GCDKDO23CMTb',
   });
 
-  // // 3. Set the model that we're about to run
-  const model =
-    'jagilley/controlnet-hough:854e8727697a057c525cdb45ab037f64ecca770a1769cc52287c2e56472a247b';
-
-  // // 4. Set the image which is the image we uploaded from the client
-  const input = {
-    image,
-    prompt: `A ${theme} ${room} Editorial Style Photo, Symmetry, Straight On, Modern Living Room, Large Window, Leather, Glass, Metal, Wood Paneling, Neutral Palette, Ikea, Natural Light, Apartment, Afternoon, Serene, Contemporary, 4k`,
-    a_prompt: `best quality, extremely detailed, photo from Pinterest, interior, cinematic photo, ultra-detailed, ultra-realistic, award-winning`,
-  };
-
-  // // 5. Run the Replicate's model (to remove background) and get the output image
-   const output = await replicate.run(model, { input });
+  const output = await replicate.run(
+    "jagilley/controlnet-hough:854e8727697a057c525cdb45ab037f64ecca770a1769cc52287c2e56472a247b",
+    {
+      input: {
+        eta: 0,
+        image: "https://replicate.delivery/pbxt/IJZOELWrncBcjdE1s5Ko8ou35ZOxjNxDqMf0BhoRUAtv76u4/room.png",
+        scale: 9,
+        prompt: "a cheerful modernist bedroom",
+        a_prompt: "best quality, extremely detailed",
+        n_prompt: "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
+        ddim_steps: 20,
+        num_samples: "1",
+        value_threshold: 0.1,
+        image_resolution: "512",
+        detect_resolution: 512,
+        distance_threshold: 0.1
+      }
+    }
+  );
+  console.log(output);
 
   // // 6. Check if the output is NULL then return error back to the client
   if (!output) {
