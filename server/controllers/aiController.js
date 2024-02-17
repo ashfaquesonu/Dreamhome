@@ -2,7 +2,7 @@ import Replicate from 'replicate';
 import fetch from 'node-fetch';
 
 export const aiRoute = async(req,res)=>{
-  //   console.log(req.body)
+     console.log(req.body)
   const image = req.body.image;
   const theme = req.body.selectedModel;
   const room = req.body.room;
