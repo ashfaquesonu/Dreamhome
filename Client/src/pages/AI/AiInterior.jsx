@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, CircularProgress, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
@@ -13,6 +13,7 @@ function AiInterior() {
   const [room, setRoom] = useState('')
   const [image, setImage] = useState(null)
   const [aiImage ,setAiImage] = useState(null)
+  const [loading,setLoading] = useState(false);
 
   const handleModelChange = (event) => {
     setSelectedModel(event.target.value);
@@ -22,8 +23,10 @@ function AiInterior() {
     setRoom(event.target.value)
   }
 const handleCreateDesign  = async()=>{
+  setLoading(true)
   const aiImage = await ai(selectedModel,room,image)
-  setAiImage(aiImage)
+  setAiImage(aiImage);
+  setLoading(false);
 }
 
   return (
@@ -38,7 +41,7 @@ const handleCreateDesign  = async()=>{
           </Typography>
         </Box>
         <Button onClick={handleCreateDesign} variant="contained" endIcon={<AutoAwesomeIcon />} sx={{ display: 'flex', marginLeft: "900px" }}>
-          Design this room
+         {loading ? (<CircularProgress color='secondary' />):'Design this room'} 
         </Button>
       </Paper>
       <Box sx={{ display: 'flex', marginLeft: '60px' }}>
