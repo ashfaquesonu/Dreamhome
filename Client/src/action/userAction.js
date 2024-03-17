@@ -66,3 +66,24 @@ export const teams = async (dispatch, getState) => {
       }
     }
   };
+
+export const mailAction = async (datas) => {
+   console.log(datas)
+    try {
+  
+      const { data } = await axios.post('/api/users/mail',{datas});
+      console.log(data)
+   
+    } catch (error) {
+      console.error('Error:', error);
+  
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message;
+        console.error('Server Error Message:', errorMessage);
+   
+      } else {
+        console.error('Generic Error');
+   
+      }
+    }
+  };

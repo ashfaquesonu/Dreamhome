@@ -89,7 +89,7 @@ export const getUsers = asyncHandler(async (req, res) => {
 
 export const mail = asyncHandler(async (req, res) => {
   console.log(req.body)
-   const {user,message,email} = req.body.datsa
+   const {user,message,mail} = req.body.datas
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -100,9 +100,9 @@ export const mail = asyncHandler(async (req, res) => {
   
   var mailOptions = {
     from: user,
-    to: email,
+    to: mail,
     subject: 'DreamHome Enquiry',
-    text: mess
+    text: message
   };
   
   transporter.sendMail(mailOptions, function(error, info){

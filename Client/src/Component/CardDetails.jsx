@@ -10,14 +10,19 @@ import MessageIcon from '@mui/icons-material/Message'
 import CallIcon from '@mui/icons-material/Call'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import Modal from '../Component/Modal'
-import { deleteUser, getAllArchitectures, getAllEngineers } from '../action/engAndArc'
+import Modal from '../Component/Model4'
+import {
+  deleteUser,
+  getAllArchitectures,
+  getAllEngineers,
+} from '../action/engAndArc'
 import { useSelector } from 'react-redux'
 
-const CardDetails = ({ engineer,setArchitectures,setEngineers }) => {
+
+const CardDetails = ({ engineer, setArchitectures, setEngineers }) => {
   const [showContactNumber, setShowContactNumber] = useState(false)
   const { name, description, number } = engineer
-
+  const [open, setOpen] = useState(false)
   const { isAuthenticated, user, loading, error } = useSelector(
     (state) => state.user
   )
@@ -26,18 +31,21 @@ const CardDetails = ({ engineer,setArchitectures,setEngineers }) => {
     setShowContactNumber(true)
   }
 
-  const handleDeleteButtonClick = async() => {
+  const handleMessage = () => {
+    setOpen(true)
+  }
+
+  const handleDeleteButtonClick = async () => {
     deleteUser(engineer._id)
-    if(engineer.engineer){
-      const data = await getAllEngineers();
+    if (engineer.engineer) {
+      const data = await getAllEngineers()
       setEngineers(data)
-    }else if(engineer.architecture){
-      const data = await getAllArchitectures();
+    } else if (engineer.architecture) {
+      const data = await getAllArchitectures()
       setArchitectures(data)
     }
-    
   }
-console.log(engineer.image)
+  console.log(engineer.image)
   return (
     <div className="upc">
       <div className="gradiant"></div>
@@ -73,7 +81,11 @@ console.log(engineer.image)
           justifyContent="space-evenly"
           marginTop="15px"
         >
-          <Button variant="contained" startIcon={<MessageIcon />}>
+          <Button
+            variant="contained"
+            startIcon={<MessageIcon />}
+            onClick={handleMessage}
+          >
             Message
           </Button>
           <Button variant="contained" onClick={handleCallButtonClick}>
@@ -91,7 +103,7 @@ console.log(engineer.image)
           </Typography>
         )}
       </div>
-      {/* <Modal open={open} setOpen={setOpen} engineer={engineer} /> */}
+      <Modal open={open} setOpen={setOpen} mail={engineer.email} />
     </div>
   )
 }
