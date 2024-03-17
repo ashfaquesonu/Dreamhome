@@ -2,6 +2,8 @@ import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 
+import nodemailer from 'nodemailer';
+
 // @desc    Login user
 // @route   POST /api/users/login
 // @access  Public
@@ -83,3 +85,31 @@ export const getUsers = asyncHandler(async (req, res) => {
   }
 
 })
+
+
+export const mail = asyncHandler(async (req, res) => {
+  console.log(req.body)
+   const {user,message,email} = req.body.datsa
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'hishammpsnhn@gmail.com',
+      pass: 'bpsdgpiqgcbmambf'
+    }
+  });
+  
+  var mailOptions = {
+    from: user,
+    to: email,
+    subject: 'DreamHome Enquiry',
+    text: mess
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+});
